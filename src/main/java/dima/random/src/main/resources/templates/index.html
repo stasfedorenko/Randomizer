@@ -21,8 +21,11 @@
 
 </table>
 <br>
-<input type="button" value="Start"
-onclick="window.location.href='student/{id}'">
+<!--<input type="button" value="Start"-->
+<!--onclick="window.location.href='student/{id}'">-->
+<form action="#" th:action="@{'/student/{id}'}" th:metog="get">
+    <input>
+</form>
 
 </body>
 </html>

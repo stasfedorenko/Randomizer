@@ -12,20 +12,32 @@
         <th>id</th>
         <th>name</th>
         <th>surname</th>
+        <th>Delete button</th>
     </tr>
     <tr th:each="student : ${allStudents}">
         <td th:text="${student.id}"></td>
         <td th:text="${student.name}"></td>
         <td th:text="${student.surname}"></td>
+        <td>
+            <form id="deleteButton" th:action="@{/random/deleteStudent}" th:object="${student}" th:method="post">
+                <input type="hidden" th:value="${student.id}" name="id"/>
+                <div class="row">
+                    <button type="submit" value="Отсутствует">Отсутствует</button>
+                </div>
+            </form>
+        </td>
     </tr>
-
 </table>
 <br>
-<!--<input type="button" value="Start"-->
-<!--onclick="window.location.href='student/{id}'">-->
-<form action="#" th:action="@{'/student/{id}'}" th:metog="get">
-    <input>
+<form id="add-form" th:action="@{/students}" th:method="get">
+    <div class="row">
+        <button type="submit" value="Старт">Старт</button>
+    </div>
 </form>
 
+<br>
+<form id="saveButton" th:action="@{/random/addNewStudent}" th:method="post">
+    <button type="submit" value="Добавить">Добавить</button>
+</form>
 </body>
 </html>

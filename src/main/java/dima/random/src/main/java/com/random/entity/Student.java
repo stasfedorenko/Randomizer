@@ -6,11 +6,15 @@ public class Student {
     private int id;
     private String name;
     private String surname;
+    private String isPresent;
+    private double mark;
 
-    public Student(int id, String name, String surname) {
+    public Student(int id, String name, String surname, String isPresent, double mark) {
         this.id = id;
         this.name = name;
         this.surname = surname;
+        this.isPresent = isPresent;
+        this.mark = mark;
     }
 
     public Student() {
@@ -38,5 +42,21 @@ public class Student {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getIsPresent() {
+        return isPresent;
+    }
+
+    public void setIsPresent(String isPresent) {
+        this.isPresent = isPresent;
+    }
+
+    public double getMark() {
+        return mark;
+    }
+
+    public void setMark(double mark) {
+        this.mark = mark;
     }
 }

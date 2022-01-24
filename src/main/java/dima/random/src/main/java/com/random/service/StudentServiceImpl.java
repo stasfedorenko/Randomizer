@@ -6,16 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     @Autowired
     public StudentServiceImpl(JdbcTemplate jdbcTemplate) {
@@ -30,6 +28,7 @@ public class StudentServiceImpl implements StudentService {
                     student.setId(rs.getInt("id"));
                     student.setName(rs.getString("name"));
                     student.setSurname(rs.getString("surname"));
+                    student.setIsPresent(rs.getString("isPresent"));
                     return student;
                 });
         return new ArrayList<>(students);
@@ -48,4 +47,16 @@ public class StudentServiceImpl implements StudentService {
         });
         return student;
     }
+
+    @Override
+    public void deleteStudent(int id) {
+        jdbcTemplate.update("DELETE FROM students WHERE id = ?", id);
+    }
+
+    @Override
+    public void saveStudent(Student student) {
+        jdbcTemplate.update("INSERT INTO students values (?,?, ?, ?)",student.getId(), student.getName(), student.getSurname(), student.getIsPresent());
+    }
+
+
 }

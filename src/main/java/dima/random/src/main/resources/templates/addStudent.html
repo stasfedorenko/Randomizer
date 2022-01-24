@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:form="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Adding student</title>
+</head>
+<body>
+<h2>New student</h2>
+<br>
+
+<form id="add-form" th:action="@{/random/saveStudent}" th:method="post">
+    <label>ID:</label>
+    <input type="text" th:value="${student.id}" name="id"></input>
+    <br><br>
+    <label>Имя:</label>
+    <input type="text" th:value="${student.name}" name="name"></input>
+    <br><br>
+    <label>Фамилия:</label>
+    <input type="text" th:value="${student.surname}" name="surname"></input>
+    <br><br>
+    <label>Занятость:</label>
+    <input type="text" th:value="${student.surname}" name="isPresent"></input>
+    <br><br>
+    <button type="submit" value="Сохранить">Сохранить</button>
+</form>
+
+</body>
+</html>

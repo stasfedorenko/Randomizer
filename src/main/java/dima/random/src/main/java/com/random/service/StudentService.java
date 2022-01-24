@@ -9,4 +9,8 @@ public interface StudentService {
     List<Student> getAllStudents();
 
     Student getStudent(int id);
+
+    void deleteStudent(int id);
+
+    void saveStudent(Student student);
 }

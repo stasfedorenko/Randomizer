@@ -10,16 +10,8 @@ public class RandomRealization {
         int t = 0;
         int maxCountMemberInGroup = 0;
         int count = 0;
-        Participant participantQuestion = null;
-        Participant participantAnswer = null;
-        System.out.println(map.size());
-        System.out.println("===================================");
-//        while (doNotRepeat.size() != map.size()) {
-//            String check = Integer.toString((int) ((Math.random() * (map.size())) + 1));
-//            if (!doNotRepeat.contains(map.get(check))) {
-//                doNotRepeat.add(map.get(check));
-//            }
-//        }
+
+        System.out.println("Нажмите Enter");
         for (int i = 1; i <= map.size(); i++) {
             if (count == 0) {
                 count++;
@@ -36,47 +28,35 @@ public class RandomRealization {
             }
         }
 
-        while (!s.equals("exit")) {
-            if (s.equals("")) {
-                while (participantAnswer == null || participantQuestion == null) {
-                    String check = Integer.toString((int) ((Math.random() * (map.size())) + 1));
-                    if (!doNotRepeat.contains(map.get(check))) {
-                        if (doNotRepeat.size() == map.size() - maxCountMemberInGroup) {
-                            doNotRepeat.add(map.get(check));
-                            if (participantAnswer == null) {
-                                participantAnswer = map.get(check);
-                            } else {
-                                participantQuestion = map.get(check);
-                            }
-                        }
-                        if (doNotRepeat.isEmpty()) {
-                            doNotRepeat.add(map.get(check));
-                            participantAnswer = map.get(check);
-                        } else {
-                            if (doNotRepeat.get(doNotRepeat.size() - 1).getIdGroup() != map.get(check).getIdGroup()) {
-                                doNotRepeat.add(map.get(check));
-                                if (participantAnswer == null) {
-                                    participantAnswer = map.get(check);
-                                } else {
-                                    participantQuestion = map.get(check);
-                                }
-                            }
-                        }
+        while (doNotRepeat.size() != map.size()) {
+            String check = Integer.toString((int) ((Math.random() * (map.size())) + 1));
+            if (!doNotRepeat.contains(map.get(check))) {
+                if (doNotRepeat.size() >= map.size() - maxCountMemberInGroup) {
+                    doNotRepeat.add(map.get(check));
+                } else {
+                    if((doNotRepeat.isEmpty())){
+                        doNotRepeat.add(map.get(check));
+                    }
+                    if ((doNotRepeat.get(doNotRepeat.size() - 1).getIdGroup() != map.get(check).getIdGroup())) {
+                        doNotRepeat.add(map.get(check));
                     }
                 }
-                // toDo
-                // реализовать изначальный рандомный список, псле идти по нему
-                // создать ентру класс как в линкед листе
+            }
+        }
 
+        while (!s.equals("exit")) {
+            if (s.equals("")) {
                 if ((t + 1) < doNotRepeat.size()) {
                     System.out.println(doNotRepeat.get(t).getName() + " задаёт вопрос.");
                     System.out.println(doNotRepeat.get(t + 1).getName() + " отвечает.");
                     System.out.println("_");
+                    System.out.println("Нажмите Enter");
                     t++;
                 } else if ((t + 1) == doNotRepeat.size()) {
                     System.out.println(doNotRepeat.get(t).getName() + " задаёт вопрос.");
                     System.out.println(doNotRepeat.get(0).getName() + " отвечает.");
                     System.out.println("_");
+                    System.out.println("Нажмите Enter");
                     t++;
                 }
                 if (t == doNotRepeat.size()) {
@@ -85,6 +65,7 @@ public class RandomRealization {
                 }
             }
             s = sc.nextLine();
+
         }
 
 

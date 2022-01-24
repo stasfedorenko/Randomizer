@@ -16,11 +16,11 @@ import java.util.Iterator;
 
 public class ParserExcelFile {
 
-    public static String parse(String name) {
+    public static String parse(String nameFile) {
 
         String result = "";
         try {
-            FileInputStream file = new FileInputStream(new File(name));
+            FileInputStream file = new FileInputStream(nameFile);
 
             //Create Workbook instance holding reference to .xlsx file
             XSSFWorkbook workbook = new XSSFWorkbook(file);
@@ -34,19 +34,31 @@ public class ParserExcelFile {
                 Row row = rowIterator.next();
                 //For each row, iterate through all the columns
                 Iterator<Cell> cellIterator = row.cellIterator();
-
+                boolean findNumGroup = false;
                 while (cellIterator.hasNext()) {
+
                     Cell cell = cellIterator.next();
                     //Check the cell type and format accordingly
                     switch (cell.getCellType()) {
                         case Cell.CELL_TYPE_FORMULA:
-                            result += ((int) cell.getNumericCellValue() + " ");
+                            if(!findNumGroup){
+                                findNumGroup = true;
+                                result += ((int) cell.getNumericCellValue() + " ");
+                            }else{
+                                findNumGroup = false;
+                                result += ((int) cell.getNumericCellValue() + "\t");
+                            }
                             break;
                         case Cell.CELL_TYPE_NUMERIC:
-                            result += ((int) cell.getNumericCellValue() + " ");
+                            if(!findNumGroup){
+                                findNumGroup = true;
+                                result += ((int) cell.getNumericCellValue() + " ");
+                            }else{
+                                result += ((int) cell.getNumericCellValue() + "\t");
+                            }
                             break;
                         case Cell.CELL_TYPE_STRING:
-                            result += (cell.getStringCellValue() + "\t");
+                            result += (cell.getStringCellValue() + " ");
                             break;
                     }
                 }

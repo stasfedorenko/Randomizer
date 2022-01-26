@@ -3,15 +3,20 @@ package stas;
 public class Participant {
     private String id;
     private String name;
+    private String surname;
     private int idGroup;
     private int pointsQuestion;
     private int pointsAnswer;
     private int pointsOther;
 
-    public Participant(String id, String name, int idGroup) {
+    public Participant(String id, String name,String surname, int idGroup) {
         this.id = id;
         this.name = name;
+        this.surname = surname;
         this.idGroup = idGroup;
+    }
+
+    public Participant() {
     }
 
     @Override
@@ -34,6 +39,13 @@ public class Participant {
     }
 
 
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
     public String getId() {
         return id;

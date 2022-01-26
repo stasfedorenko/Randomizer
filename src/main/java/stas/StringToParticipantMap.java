@@ -9,8 +9,10 @@ public class StringToParticipantMap {
         Map<String, Participant> resultMap = new HashMap<>();
         StringBuilder idParticipant = new StringBuilder();
         StringBuilder name = new StringBuilder();
+        StringBuilder surname = new StringBuilder();
         StringBuilder idGroup = new StringBuilder();
-        boolean flagIdSeparation = false;
+        boolean flagSeparationIdGroupAndIdParticipant = false;
+        boolean flagSeparationNameAndSurname = false;
         for (int i = 0; i < str.length(); i++) {
             Character symbol = str.charAt(i);
             if (symbol.equals('\t')) {
@@ -19,26 +21,38 @@ public class StringToParticipantMap {
                         new Participant(
                                 idParticipant.toString(),
                                 name.toString(),
+                                surname.toString(),
                                 Integer.parseInt(idGroup.toString())));
-                idParticipant = new StringBuilder();
+                idParticipant.setLength(0);
                 name.setLength(0);
+                surname.setLength(0);
                 idGroup = new StringBuilder();
             } else if (symbol.equals(' ')) {
                 if (Character.isLetter(str.charAt(i - 1)) && Character.isLetter(str.charAt(i + 1))) {
-                    name.append(symbol);
+                    flagSeparationNameAndSurname = true;
                 }
             } else if (Character.isDigit(symbol)) {
-                if (!flagIdSeparation) {
+                if (!flagSeparationIdGroupAndIdParticipant) {
                     idParticipant.append(symbol);
                     if (!Character.isDigit(str.charAt(i + 1))) {
-                        flagIdSeparation = true;
+                        flagSeparationIdGroupAndIdParticipant = true;
                     }
                 } else {
                     idGroup.append(symbol);
-                    flagIdSeparation = false;
+                    if (!Character.isDigit(str.charAt(i + 1))) {
+                        flagSeparationIdGroupAndIdParticipant = false;
+                    }
                 }
             } else if (Character.isLetter(symbol)) {
-                name.append(symbol);
+                if(!flagSeparationNameAndSurname){
+                    name.append(symbol);
+                }else{
+                    surname.append(symbol);
+                    if(!Character.isLetter(str.charAt(i+1))){
+                        flagSeparationNameAndSurname = false;
+                    }
+                }
+
             }
         }
         return resultMap;

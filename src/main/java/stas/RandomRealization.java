@@ -3,15 +3,13 @@ package stas;
 import java.util.*;
 
 public class RandomRealization {
-    public static String random(Map<String, Participant> map) {
+    public static List<Participant> random(Map<String, Participant> map) {
         List<Participant> doNotRepeat = new ArrayList<>();
-        Scanner sc = new Scanner(System.in);
-        String s = "s";
-        int t = 0;
+
         int maxCountMemberInGroup = 0;
         int count = 0;
 
-        System.out.println("Нажмите Enter");
+
         for (int i = 1; i <= map.size(); i++) {
             if (count == 0) {
                 count++;
@@ -44,31 +42,7 @@ public class RandomRealization {
             }
         }
 
-        while (!s.equals("exit")) {
-            if (s.equals("")) {
-                if ((t + 1) < doNotRepeat.size()) {
-                    System.out.println(doNotRepeat.get(t).getName() + " задаёт вопрос.");
-                    System.out.println(doNotRepeat.get(t + 1).getName() + " отвечает.");
-                    System.out.println("_");
-                    System.out.println("Нажмите Enter");
-                    t++;
-                } else if ((t + 1) == doNotRepeat.size()) {
-                    System.out.println(doNotRepeat.get(t).getName() + " задаёт вопрос.");
-                    System.out.println(doNotRepeat.get(0).getName() + " отвечает.");
-                    System.out.println("_");
-                    System.out.println("Нажмите Enter");
-                    t++;
-                }
-                if (t == doNotRepeat.size()) {
-                    System.out.println("Участники закончились.");
-                    break;
-                }
-            }
-            s = sc.nextLine();
 
-        }
-
-
-        return null;
+        return doNotRepeat;
     }
 }

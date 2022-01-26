@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<h2>All Students</h2>
+<body>
+<!--<table>-->
+<!--    <tr>-->
+<!--        <th>id</th>-->
+<!--        <th>name</th>-->
+<!--        <th>surname</th>-->
+<!--        <th>isPresent</th>-->
+<!--    </tr>-->
+<!--    <tr th:each="student : ${allStudents3}">-->
+<!--        <td th:text="${student.a_id}"></td>-->
+<!--        <td th:text="${student.c_name}"></td>-->
+<!--        <td th:text="${student.d_surname}"></td>-->
+<!--        <td th:text="${student.e_isPresent}"></td>-->
+<!--    </tr>-->
+<!--</table>-->
+<table>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>surname</th>
+        <th>isPresent</th>
+    </tr>
+    <tr>
+        <td th:text="${students.a_id}"></td>
+        <td th:text="${students.c_name}"></td>
+        <td th:text="${students.d_surname}"></td>
+        <td th:text="${students.e_isPresent}"></td>
+    </tr>
+</table>
+<br>
+<form id="backButton" th:action="@{/random/main}" th:method="get">
+    <button type="submit" value="Назад">Назад</button>
+</form>
+
+<form id="randomButton" th:action="@{/random/student}" th:method="get">
+        <button type="submit" value="Выбрать">Выбрать</button>
+
+</form>
+</body>
+</html>

@@ -3,7 +3,7 @@ package stas;
 import java.util.*;
 
 public class RandomRealization {
-    public static String random(Map<String, Participant> map) {
+    public static void random(Map<String, Participant> map) {
         List<Participant> doNotRepeat = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         String s = "s";
@@ -67,8 +67,5 @@ public class RandomRealization {
             s = sc.nextLine();
 
         }
-
-
-        return null;
     }
 }

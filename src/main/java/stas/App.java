@@ -9,7 +9,7 @@ public class App {
 //        System.out.println(str);
         Map<String,Participant> map = StringToParticipantMap.toMap(str);
 //        System.out.println(map);
-        RandomRealization.random(map);
+        AnswerQuestion.run(RandomRealization.random(map));
 
     }
 

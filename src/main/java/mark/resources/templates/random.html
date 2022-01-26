@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Random</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <div class="container">
+            <div>
+                <table>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Оценка</th>
+                    </tr>
+                    <tr>
+                        <td>Спрашивает:</td>
+                        <td><span th:text="${firstStudent}"></span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Отвечает:</td>
+                        <td><span th:text="${secondStudent}"></span></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <form action="/random/">
+                    <p><input type="submit" value=" Продолжить "></p>
+                </form>
+
+            </div>
+        </div>
+    </body>
+</html>

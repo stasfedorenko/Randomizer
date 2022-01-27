@@ -1,4 +1,6 @@
-package stas;
+package stas.controller;
+
+import stas.entity.Participant;
 
 import java.util.*;
 
@@ -8,7 +10,6 @@ public class RandomRealization {
 
         int maxCountMemberInGroup = 0;
         int count = 0;
-
 
         for (int i = 1; i <= map.size(); i++) {
             if (count == 0) {

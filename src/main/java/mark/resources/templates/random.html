@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="ru">
     <head>
         <meta charset="UTF-8"/>
         <title>Random</title>
@@ -8,6 +9,7 @@
     <body>
         <div class="container">
             <div>
+                <form action="#" th:action="@{/random/}" th:object="${bothRatings}" method="post">
                 <table>
                     <tr>
                         <th></th>
@@ -16,20 +18,17 @@
                     </tr>
                     <tr>
                         <td>Спрашивает:</td>
-                        <td><span th:text="${firstStudent}"></span></td>
-                        <td></td>
+                        <td><span th:text="${firstStudentName}"></span></td>
+                        <td><input type="text" th:field="*{firstRating}" th:id="${firstStudentId}" th:name="${firstStudentId}"/></td>
                     </tr>
                     <tr>
                         <td>Отвечает:</td>
-                        <td><span th:text="${secondStudent}"></span></td>
-                        <td></td>
+                        <td><span th:text="${secondStudentName}"></span></td>
+                        <td><input type="text" th:field="*{secondRating}" th:id="${secondStudentName}" th:name="${secondStudentId}"/></td>
                     </tr>
                 </table>
-
-                <form action="/random/">
-                    <p><input type="submit" value=" Продолжить "></p>
+                <p><input type="submit" value=" Продолжить "></p>
                 </form>
-
             </div>
         </div>
     </body>

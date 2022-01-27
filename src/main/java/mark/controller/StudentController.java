@@ -1,16 +1,21 @@
 package mark.controller;
 
 import mark.entity.ParseXLSX;
+import mark.entity.Rating;
+import mark.entity.RatingWrapper;
 import mark.entity.Student;
+import mark.service.RatingService;
 import mark.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,11 +24,18 @@ import java.util.Random;
 public class StudentController {
 
     private final StudentService studentService;
+    private final RatingService ratingService;
+
     static List<Integer> askedIndexes = new ArrayList<>();
     static List<Integer> repliedIndexes = new ArrayList<>();
 
-    public StudentController(StudentService studentService) {
+    static int countMod = 0;
+
+    static LocalDate localDate = LocalDate.now();
+
+    public StudentController(StudentService studentService, RatingService ratingService) {
         this.studentService = studentService;
+        this.ratingService = ratingService;
     }
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
@@ -46,6 +58,7 @@ public class StudentController {
     public RedirectView reset() {
         askedIndexes.clear();
         repliedIndexes.clear();
+        countMod = 0;
         RedirectView rv = new RedirectView();
         rv.setUrl("/");
         return rv;
@@ -65,8 +78,8 @@ public class StudentController {
         return rv;
     }
 
-    @RequestMapping("/random")
-    public String random(Model model) {
+    @RequestMapping(value = "/random", method = RequestMethod.POST)
+    public String random(Model model,@ModelAttribute RatingWrapper ratingWrapper) {
         List<Student> students = studentService.getAllUsers();
 
         if (askedIndexes.size() == students.size()) {
@@ -145,24 +158,52 @@ public class StudentController {
         }
 
 
-
         for (int i = 0; i < askedIndexes.size(); i++) {
             System.out.println(students.get(askedIndexes.get(i)).getId() + " = " + students.get(repliedIndexes.get(i)).getId());
         }
         System.out.println();
 
-        model.addAttribute("firstStudent", students.get(firstRandom).getName());
-        model.addAttribute("secondStudent", students.get(secondRandom).getName());
 
+        model.addAttribute("firstStudentName", students.get(firstRandom).getName());
+        model.addAttribute("firstStudentId", students.get(firstRandom).getId());
+        model.addAttribute("secondStudentName", students.get(secondRandom).getName());
+        model.addAttribute("secondStudentId", students.get(secondRandom).getId());
 
+        model.addAttribute("bothRatings",new RatingWrapper());
+
+        if(countMod > 0){
+            System.out.println(ratingWrapper.getFirstRating());
+            System.out.println(ratingWrapper.getSecondRating());
+            ratingService.addRating(
+                    new Rating(0,students.get(firstRandom).getId(),
+                            localDate,ratingWrapper.getFirstRating())
+            );
+
+            ratingService.addRating(
+                    new Rating(0,students.get(secondRandom).getId(),
+                            localDate,ratingWrapper.getSecondRating())
+            );
+        }
+
+        countMod++;
         return "random";
     }
+
+    @RequestMapping(value = "/random", method = RequestMethod.GET)
+    public void randomGet(Model model,@ModelAttribute RatingWrapper ratingWrapper) {
+        countMod = 0;
+        askedIndexes.remove(askedIndexes.size()-1);
+        repliedIndexes.remove(repliedIndexes.size()-1);
+        random(model,ratingWrapper);
+    }
+
+    @RequestMapping(value = "/example")
+    public String example(@ModelAttribute Rating rating,Model model){
+        model.addAttribute("rating",new Rating());
+
+        System.out.println(rating.getRecord());
+        return "exampleForm";
+    }
+
 }
 
-/*while (askedIndexes.contains(firstRandom) || repliedIndexes.contains(secondRandom)) {
-            if (br == true) break;
-            int temp = secondRandom;
-            while (temp == secondRandom || secondRandom == askedIndexes.get(0)) {
-                secondRandom = random.nextInt(students.size());
-            }
-        }*/

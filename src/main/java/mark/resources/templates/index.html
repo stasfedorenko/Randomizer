@@ -22,7 +22,7 @@
                         <td><a th:href="@{ '/delete/'+ ${student.id}}">ткни</a></td>
                     </tr>
                 </table>
-                <form action="/random/">
+                <form action="/random/" METHOD="post">
                     <p><input type="submit" value="Рандомайз"></p>
                 </form>
                 <a th:href="@{/uploadOneFile}">Загрузить файл для парсинга</a>

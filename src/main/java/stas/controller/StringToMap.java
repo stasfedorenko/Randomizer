@@ -1,9 +1,11 @@
-package stas;
+package stas.controller;
+
+import stas.entity.Participant;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class StringToParticipantMap {
+public class StringToMap {
     public static Map<String, Participant> toMap(String str) {
 
         Map<String, Participant> resultMap = new HashMap<>();
@@ -52,7 +54,6 @@ public class StringToParticipantMap {
                         flagSeparationNameAndSurname = false;
                     }
                 }
-
             }
         }
         return resultMap;

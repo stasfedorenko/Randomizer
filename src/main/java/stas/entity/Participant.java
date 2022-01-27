@@ -1,19 +1,23 @@
-package stas;
+package stas.entity;
 
 public class Participant {
     private String id;
     private String name;
     private String surname;
     private int idGroup;
-    private int pointsQuestion;
-    private int pointsAnswer;
-    private int pointsOther;
+    private double pointsQuestion = 0;
+    private double pointsAnswer = 0;
+    private double pointsOther = 0;
 
-    public Participant(String id, String name,String surname, int idGroup) {
+    public Participant(String id, String name, String surname, int idGroup) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.idGroup = idGroup;
+    }
+
+    public String getFullName() {
+        return this.surname + " " + this.name;
     }
 
     public Participant() {
@@ -30,14 +34,14 @@ public class Participant {
                 ", pointsOther=" + pointsOther +
                 '}';
     }
-    public int getPointsOther() {
+
+    public double getPointsOther() {
         return pointsOther;
     }
 
-    public void setPointsOther(int pointsOther) {
+    public void setPointsOther(double pointsOther) {
         this.pointsOther = pointsOther;
     }
-
 
     public String getSurname() {
         return surname;
@@ -71,19 +75,19 @@ public class Participant {
         this.idGroup = idGroup;
     }
 
-    public int getPointsQuestion() {
+    public double getPointsQuestion() {
         return pointsQuestion;
     }
 
-    public void setPointsQuestion(int pointsQuestion) {
+    public void setPointsQuestion(double pointsQuestion) {
         this.pointsQuestion = pointsQuestion;
     }
 
-    public int getPointsAnswer() {
+    public double getPointsAnswer() {
         return pointsAnswer;
     }
 
-    public void setPointsAnswer(int pointsAnswer) {
+    public void setPointsAnswer(double pointsAnswer) {
         this.pointsAnswer = pointsAnswer;
     }
 }

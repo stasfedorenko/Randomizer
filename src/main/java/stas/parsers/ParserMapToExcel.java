@@ -1,4 +1,4 @@
-package stas.controller;
+package stas.parsers;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class ParserMapToExcel {
-    public void run(Map<String, Participant> map) {
+    public static void run(Map<String, Participant> map) {
         String path = "src/main/java/stas/documents/result.xlsx";
         try {
 
@@ -19,7 +19,6 @@ public class ParserMapToExcel {
             FileInputStream file = new FileInputStream(resultFileExcel);
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             XSSFSheet sheet = workbook.getSheetAt(0);
-            int index = 0;
             Set<String> newRows = map.keySet();
             int rownum = sheet.getLastRowNum();
 
@@ -31,7 +30,7 @@ public class ParserMapToExcel {
                     Cell cellSurname = row.getCell(1);
                     Cell cellName = row.getCell(2);
                     Cell cellIdGroup = row.getCell(3);
-                    Cell cellPointsQuestion = row.getCell(4);;
+                    Cell cellPointsQuestion = row.getCell(4);
                     Cell cellPointsAnswer = row.getCell(5);
                     Cell cellPointsOther = row.getCell(6);
                     row.removeCell(cellId);
@@ -55,6 +54,10 @@ public class ParserMapToExcel {
             for (String key : newRows) {
                 Row row = sheet.createRow(rownum++);
                 int cellnum = 0;
+
+
+
+
                 if (rownum == 1) {
                     Cell cellId = row.createCell(cellnum++);
                     Cell cellSurname = row.createCell(cellnum++);
